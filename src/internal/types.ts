@@ -27,6 +27,7 @@ export enum NetInfoCellularGeneration {
 
 export interface NetInfoConfig {
   reachabilityUrl: string;
+  reachabilityTest: (response: Response) => Promise<boolean> | boolean;
   reachabilityLongTimeout: number;
   reachabilityShortTimeout: number;
 }

@@ -13,7 +13,7 @@ import DeprecatedState from './internal/deprecatedState';
 import * as DeprecatedTypes from './internal/deprecatedTypes';
 import State from './internal/state';
 import * as Types from './internal/types';
-import {netInfoConfig} from './internal/netInfoConfig';
+import {getNetInfoConfig, setNetInfoConfig} from './internal/netInfoConfig';
 
 // Call the setup methods of the two state modules right away
 State.setup();
@@ -24,19 +24,6 @@ const _isConnectedListeners = new Map<
   /// @ts-ignore Typescript des not like the trailing comma that Prettier insists upon
   Types.NetInfoChangeHandler
 >();
-
-/**
- * Sets configuration for NetInfo
- */
-export function setNetInfoConfig(
-  newConfig: Partial<Types.NetInfoConfig>,
-): void {
-  Object.assign(netInfoConfig, newConfig);
-}
-
-export function getNetInfoConfig(): Types.NetInfoConfig {
-  return netInfoConfig;
-}
 
 /**
  * Returns a `Promise` that resolves to a `NetInfoState` object.
@@ -56,7 +43,7 @@ export function fetch(): Promise<Types.NetInfoState> {
  *
  * @param listener The listener which is called when the network state changes.
  *
- * @returns An ofunction which can be called to unsubscribe.
+ * @returns A function which can be called to unsubscribe.
  */
 export function addEventListener(
   listener: Types.NetInfoChangeHandler,
@@ -237,4 +224,6 @@ export default {
   getConnectionInfo,
   isConnectionExpensive,
   isConnected,
+  getNetInfoConfig,
+  setNetInfoConfig,
 };

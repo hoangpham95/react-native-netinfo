@@ -8,7 +8,7 @@
  */
 
 import * as PrivateTypes from './privateTypes';
-import {netInfoConfig} from './netInfoConfig';
+import {getNetInfoConfig} from './netInfoConfig';
 
 const _subscriptions = new Set<
   PrivateTypes.NetInfoInternetReachabilityChangeListener
@@ -35,8 +35,9 @@ interface InternetReachabilityCheckHandler {
   cancel: () => void;
 }
 function checkInternetReachability(): InternetReachabilityCheckHandler {
-  // We wraop the promise to allow us to cancel the pending request, if needed
+  // We wrap the promise to allow us to cancel the pending request, if needed
   let hasCanceled = false;
+  const netInfoConfig = getNetInfoConfig();
 
   const promise = fetch(netInfoConfig.reachabilityUrl)
     .then(
